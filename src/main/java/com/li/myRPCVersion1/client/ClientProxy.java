@@ -14,7 +14,11 @@ public class ClientProxy implements InvocationHandler {
     private String host;
     private int port;
 
-
+    /**
+     * 实现客户端的核心组件，利用JDK动态代理机制简化了接口调用的实现
+     * 将接口调用抽象为RPC请求，隐藏网络通信细节
+     * 利用反射与序列化机制，实现请求构造与服务端交互
+     */
     // jdk 动态代理， 每一次代理对象调用方法，会经过此方法增强（反射获取request对象，socket发送至客户端）
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -24,6 +28,12 @@ public class ClientProxy implements InvocationHandler {
                 .params(args).paramsTypes(method.getParameterTypes()).build();
         //数据传输
         RPCResponse response = IOClient.sendRequest(host, port, request);
+        if (response != null && response.getCode() == 200) {
+            System.out.println("调用成功，返回数据：" + response.getData());
+        }
+        else {
+            System.out.println("调用失败，错误信息：" + (response != null ? response.getMessage() : "未知错误"));
+        }
         //System.out.println(response);
         return response.getData();
     }
