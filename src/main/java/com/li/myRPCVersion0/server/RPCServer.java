@@ -1,6 +1,5 @@
 package com.li.myRPCVersion0.server;
 
-
 import com.li.myRPCVersion0.common.User;
 
 import java.io.IOException;
@@ -13,16 +12,15 @@ import java.util.concurrent.Executors;
 
 public class RPCServer {
     public static void main(String[] args) {
-        /**
-         * 在端口8899上启动一个serverSocket，等待客户端连接
-         * 使用try-with-resources自动关闭Socket流，避免资源泄露
-         *
+        /*
+          在端口8899上启动一个serverSocket，等待客户端连接
+          使用try-with-resources自动关闭Socket流，避免资源泄露
          */
         UserServiceImpl userService = new UserServiceImpl();
         final int port = 8899;
-
+        // 我们使用线程池
         ExecutorService threadPoll = Executors.newCachedThreadPool();
-        try {
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
             // 监听端口
             System.out.println("服务端启动了");
             // BIO的方式监听Socket
