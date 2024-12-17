@@ -24,7 +24,6 @@ public class RPCServer {
         ExecutorService threadPoll = Executors.newCachedThreadPool();
         try {
             // 监听端口
-            ServerSocket serverSocket = new ServerSocket(port);
             System.out.println("服务端启动了");
             // BIO的方式监听Socket
             while (true){
