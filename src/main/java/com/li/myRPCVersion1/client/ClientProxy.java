@@ -38,6 +38,7 @@ public class ClientProxy implements InvocationHandler {
         return response.getData();
     }
     <T>T getProxy(Class<T> clazz){
+        // 动态代理的核心方法：Proxy.newProxyInstance这是用于生成接口的代理对象
         Object o = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, this);
         return (T)o;
     }
