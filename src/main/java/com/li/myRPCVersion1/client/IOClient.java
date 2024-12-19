@@ -23,7 +23,6 @@ public class IOClient {
              ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
         ) {
 
-//            System.out.println(request);
             objectOutputStream.writeObject(request);
             objectOutputStream.flush();
 
