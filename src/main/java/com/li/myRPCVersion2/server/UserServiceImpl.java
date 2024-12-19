@@ -8,7 +8,7 @@ public class UserServiceImpl implements UserService {
     public User getUserByUserId(Integer id) {
         // 模拟从数据库中取用户的行为
         User user = User.builder().id(id).userName("he2121").sex(true).build();
-        System.out.println("客户端查询了"+id+"用户");
+        System.out.println("客户端查询了id为"+id+"用户");
         return user;
     }
 

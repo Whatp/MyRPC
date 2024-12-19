@@ -22,10 +22,15 @@ public class RPCClientProxy implements InvocationHandler {
                 .methodName(method.getName())
                 .params(args).paramsTypes(method.getParameterTypes()).build();
         //数据传输
-        RPCResponse response = IOClient.sendRequest(host, port, request);
+        RPCResponse response = IOClient.sendAndReceive(host, port, request);
         //System.out.println(response);
         return response.getData();
     }
+
+    /**
+     * 在运行时动态生成一个代理类，这个类会实现clazz接口
+     * 代理类的方法调用会被拦截，并且交给InvocationHandler.invoke()方法处理
+     */
     <T>T getProxy(Class<T> clazz){
         Object o = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, this);
         return (T)o;

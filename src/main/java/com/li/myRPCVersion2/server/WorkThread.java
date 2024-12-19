@@ -13,8 +13,10 @@ import java.net.Socket;
 
 /**
  * 这里负责解析得到的request请求，执行服务方法，返回给客户端
- * 1. 从request得到interfaceName 2. 根据interfaceName在serviceProvide Map中获取服务端的实现类
- * 3. 从request中得到方法名，参数， 利用反射执行服务中的方法 4. 得到结果，封装成response，写入socket
+ * 1. 从request得到interfaceName
+ * 2. 根据interfaceName在serviceProvide Map中获取服务端的实现类
+ * 3. 从request中得到方法名，参数， 利用反射执行服务中的方法
+ * 4. 得到结果，封装成response，写入socket
  */
 @AllArgsConstructor
 public class WorkThread implements Runnable{
@@ -45,9 +47,16 @@ public class WorkThread implements Runnable{
         Object service = serviceProvider.getService(interfaceName);
         // 反射调用方法
         Method method = null;
+
         try {
+            /*
+            根据service.getClass()获取目标类的Class对象（表示类的类型）
+            getMethod()根据方法名和参数类型获取对应的方法对象
+            method.invoke()在指定对象上调用此方法，并传递参数
+             */
             method = service.getClass().getMethod(request.getMethodName(), request.getParamsTypes());
             Object invoke = method.invoke(service, request.getParams());
+
             return RPCResponse.success(invoke);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
