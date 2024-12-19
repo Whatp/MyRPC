@@ -23,6 +23,7 @@ public class RPCServer {
     public static void main(String[] args) {
 
         // BIO模式下，这种方式在高并发情况下可能导致线程资源耗尽，后续可优化为NIO或者线程池
+        // 服务端既监听，又进行处理，不是很方便，后需要进行解耦操作
         try (ServerSocket serverSocket = new ServerSocket(8899)) {
             System.out.println("服务端启动了");
             ExecutorService threadPool = Executors.newCachedThreadPool();
