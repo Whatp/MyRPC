@@ -36,7 +36,7 @@ public class RPCServer {
             System.out.println("服务器启动失败");
         }
     }
-
+    // 这里服务端直接绑定的是UserService方法，如果还有其他服务接口暴露（多个服务的注册）
     private static void handleClient(Socket socket) {
         UserServiceImpl userService = new UserServiceImpl();
         try {
