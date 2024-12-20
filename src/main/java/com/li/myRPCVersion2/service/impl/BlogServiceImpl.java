@@ -1,4 +1,4 @@
-package com.li.myRPCVersion2.server;
+package com.li.myRPCVersion2.service.impl;
 
 import com.li.myRPCVersion2.common.Blog;
 import com.li.myRPCVersion2.service.BlogService;

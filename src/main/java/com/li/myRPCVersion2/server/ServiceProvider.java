@@ -12,15 +12,16 @@ public class ServiceProvider {
     /**
      * 一个实现类可能实现多个接口
      */
-    private Map<String, Object> interfaceProvider;
+    private final Map<String, Object> interfaceProvider;
 
     public ServiceProvider(){
         this.interfaceProvider = new HashMap<>();
     }
 
     public void provideServiceInterface(Object service){
+        // 获取该实现类的所有接口
         Class<?>[] interfaces = service.getClass().getInterfaces();
-
+        // 遍历每个接口，将接口的全限定类名作为键，service作为值存入map
         for(Class clazz : interfaces){
             interfaceProvider.put(clazz.getName(),service);
         }

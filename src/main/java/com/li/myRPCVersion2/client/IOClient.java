@@ -17,6 +17,8 @@ public class IOClient {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
 
+            // 封装好的request请求为：RPCRequest(interfaceName=com.li.myRPCVersion0.service.UserService,
+            // methodName=getUserByUserId, params=[10], paramsTypes=[class java.lang.Integer])
             System.out.println("封装好的request请求为：" + request);
 
             objectOutputStream.writeObject(request);

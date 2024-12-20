@@ -1,4 +1,4 @@
-package com.li.myRPCVersion2.server;
+package com.li.myRPCVersion2.service.impl;
 
 import com.li.myRPCVersion0.common.User;
 import com.li.myRPCVersion0.service.UserService;

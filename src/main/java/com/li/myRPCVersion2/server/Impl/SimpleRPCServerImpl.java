@@ -1,4 +1,8 @@
-package com.li.myRPCVersion2.server;
+package com.li.myRPCVersion2.server.Impl;
+
+import com.li.myRPCVersion2.server.RPCServer;
+import com.li.myRPCVersion2.server.ServiceProvider;
+import com.li.myRPCVersion2.server.WorkThread;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -8,11 +12,11 @@ import java.net.Socket;
  * 这个实现类代表着java原始的BIO监听模式，来一个任务，就new一个线程去处理
  * 处理任务的工作见WorkThread中
  */
-public class SimpleRPCRPCServer implements RPCServer {
+public class SimpleRPCServerImpl implements RPCServer {
     // 存着服务接口名-> service对象的map
     private ServiceProvider serviceProvider;
 
-    public SimpleRPCRPCServer(ServiceProvider serviceProvide){
+    public SimpleRPCServerImpl(ServiceProvider serviceProvide){
         this.serviceProvider = serviceProvide;
     }
 

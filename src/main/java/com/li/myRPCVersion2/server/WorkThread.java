@@ -41,9 +41,9 @@ public class WorkThread implements Runnable{
     }
 
     private RPCResponse getResponse(RPCRequest request){
-        // 得到服务名
+        // 得到服务接口的全限定类名
         String interfaceName = request.getInterfaceName();
-        // 得到服务端相应服务实现类
+        // 根据全限定类名得到服务实现类
         Object service = serviceProvider.getService(interfaceName);
         // 反射调用方法
         Method method = null;
@@ -55,8 +55,9 @@ public class WorkThread implements Runnable{
             method.invoke()在指定对象上调用此方法，并传递参数
              */
             method = service.getClass().getMethod(request.getMethodName(), request.getParamsTypes());
+            // 使用invoke动态动态调用目标方法，传入参数
             Object invoke = method.invoke(service, request.getParams());
-
+            // 返回值封装
             return RPCResponse.success(invoke);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();

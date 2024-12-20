@@ -1,4 +1,8 @@
-package com.li.myRPCVersion2.server;
+package com.li.myRPCVersion2.server.Impl;
+
+import com.li.myRPCVersion2.server.RPCServer;
+import com.li.myRPCVersion2.server.ServiceProvider;
+import com.li.myRPCVersion2.server.WorkThread;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,23 +15,23 @@ import java.util.concurrent.TimeUnit;
 /**
  * 线程池版服务端的实现
  */
-public class ThreadPoolRPCRPCServer implements RPCServer {
+public class ThreadPoolRPCServerImpl implements RPCServer {
     private final ThreadPoolExecutor threadPool;
     private ServiceProvider serviceProvider;
 
     // 默认构造函数
-    public ThreadPoolRPCRPCServer(ServiceProvider serviceProvider) {
+    public ThreadPoolRPCServerImpl(ServiceProvider serviceProvider) {
         threadPool = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(),
                 1000, 60, TimeUnit.SECONDS, new ArrayBlockingQueue<>(100));
         this.serviceProvider = serviceProvider;
     }
 
     // 自定义构造函数
-    public ThreadPoolRPCRPCServer(ServiceProvider serviceProvider, int corePoolSize,
-                                  int maximumPoolSize,
-                                  long keepAliveTime,
-                                  TimeUnit unit,
-                                  BlockingQueue<Runnable> workQueue) {
+    public ThreadPoolRPCServerImpl(ServiceProvider serviceProvider, int corePoolSize,
+                                   int maximumPoolSize,
+                                   long keepAliveTime,
+                                   TimeUnit unit,
+                                   BlockingQueue<Runnable> workQueue) {
 
         threadPool = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
         this.serviceProvider = serviceProvider;
