@@ -13,11 +13,12 @@ import java.lang.reflect.Method;
  * 因为是服务器端，我们知道接受到请求格式是RPCRequest
  * Object类型也行，强制转型就行
  */
+// 自定义的Channel Handler 一般继承 SimpleChannelInboundHandler，并且对于http请求我们可以给他设置
 @AllArgsConstructor
 public class NettyServerHandler extends SimpleChannelInboundHandler<RPCRequest> {
     private ServiceProvider serviceProvider;
 
-
+    // 编写逻辑代码，接收到服务器数据后被系统调用
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, RPCRequest msg) throws Exception {
         //System.out.println(msg);

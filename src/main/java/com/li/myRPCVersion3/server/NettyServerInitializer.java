@@ -12,16 +12,19 @@ import lombok.AllArgsConstructor;
 
 /**
  * 初始化，主要负责序列化的编码解码， 需要解决netty的粘包问题
+ * 每当有新的客户端连接到服务端时，Netty会调用 initChannel 方法，为对应的 SocketChannel 初始化其 ChannelPipeline
  */
 @AllArgsConstructor
 public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
+
     private ServiceProvider serviceProvider;
+
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
         // 消息格式 [长度][消息体], 解决粘包问题
         pipeline.addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE,0,4,0,4));
-        // 计算当前待大宋消息的长度，写入到前4个字节中
+        // 计算当前待发送消息的长度，写入到前4个字节中
         pipeline.addLast(new LengthFieldPrepender(4));
 
         // 这里使用的还是java 序列化方式， netty的自带的解码编码支持传输这种结构
@@ -32,7 +35,7 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
                 return Class.forName(className);
             }
         }));
-
+        // 自定义的 ChannelHandler
         pipeline.addLast(new NettyServerHandler(serviceProvider));
     }
 }
